@@ -1,62 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:shopnearn_app/screens/offer_screen.dart';
-import 'package:shopnearn_app/screens/service_screen.dart';
 import 'package:shopnearn_app/screens/profile_screen.dart';
+import 'package:shopnearn_app/screens/service_screen.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: WelcomeScreen(), 
-  ));
+  runApp(MyApp());
 }
 
-class WelcomeScreen extends StatefulWidget {
-  @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  bool _isLogged = false;
-
-  void _login() {
-    setState(() {
-      _isLogged = true;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _isLogged
-        ? HomeScreen()
-        : Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "Selamat Datang",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                ),
+    return MaterialApp(
+      title: "ShopN'earn",
+      theme: ThemeData(
+        primarySwatch: Colors.blue, // Ubah primarySwatch sesuai preferensi Anda
+        fontFamily: 'Montserrat', // Ganti font sesuai preferensi Anda
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => WelcomeScreen(),
+        '/home': (context) => HomeScreen(),
+        '/profile': (context) => ProfileScreen(),
+      },
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.shop_two_sharp), // Ubah ikon di sini sesuai preferensi Anda
+            SizedBox(width: 10.0), // Berikan sedikit spasi antara ikon dan teks
+            Text(
+              "ShopN'earn",
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue, // Ubah warna teks menjadi biru
+              ),
+            )
+          ],
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Colors.blue, Colors.transparent], // Ubah warna latar belakang menjadi biru
+            ),
+          ),
+        ),
+        centerTitle: true, // Menempatkan judul ke tengah
+      ),
+      backgroundColor: Colors.blue, // Ubah warna latar belakang body menjadi biru
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "ShopN'earn",
+              style: TextStyle(
+                fontSize: 100.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Ubah warna teks menjadi putih
               ),
             ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Selamat Datang ke ShopN'earn",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: _login,
-                    child: Text("Masuk"),
-                  ),
-                ],
-              ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              child: Text("Masuk"),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -67,23 +91,26 @@ class HomeScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "ShopN'earn",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 35.0,
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.shop_two_sharp), // Ubah ikon di sini sesuai preferensi Anda
+              SizedBox(width: 10.0), // Berikan sedikit spasi antara ikon dan teks
+              Text(
+                "ShopN'earn",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue, // Ubah warna teks menjadi biru
+                ),
+              ),
+            ],
           ),
           actions: [
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                // Tambahkan fungsi yang sesuai untuk menavigasi ke profil pengguna.
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
-                  ),
-                );
+                Navigator.of(context).pushNamed('/profile');
               },
             ),
           ],
@@ -104,10 +131,12 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
+        backgroundColor: Colors.white, // Ubah warna latar belakang body menjadi putih
         body: TabBarView(
           children: [
-            ServiceScreen(),
+            ServiceScreen(), // Pastikan import ServiceScreen telah dilakukan di atas
             OfferScreen(),
+            
           ],
         ),
       ),

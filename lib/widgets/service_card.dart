@@ -4,8 +4,9 @@ class ServiceCard extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
+  final Function() onTap; // Tambahkan parameter onTap
 
-  ServiceCard(this.title, this.icon, this.color);
+  ServiceCard(this.title, this.icon, this.color, this.onTap);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,7 @@ class ServiceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: InkWell(
-        onTap: () {
-          // Tambahkan logika saat item layanan diklik
-        },
+        onTap: onTap, // Gunakan onTap yang diterima dari parameter
         child: Container(
           width: 120.0,
           padding: EdgeInsets.all(10.0),

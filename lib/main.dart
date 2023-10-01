@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopnearn_app/screens/home_screen.dart';
-
+import 'package:shopnearn_app/screens/profile_screen.dart'; // Import HomeScreen jika diperlukan
 
 void main() {
   runApp(MyApp());
@@ -15,11 +15,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         fontFamily: 'Montserrat', // Ganti font sesuai preferensi Anda
       ),
-      home: HomeScreen(),
+      initialRoute: '/', // Set route awal ke WelcomeScreen
+      routes: {
+        '/': (context) =>
+            WelcomeScreen(), // Definisikan route untuk WelcomeScreen
+        '/home': (context) =>
+            HomeScreen(), // Definisikan route untuk HomeScreen
+        '/profile': (context) => ProfileScreen(),
+      },
     );
   }
 }
-
-
- 
-
